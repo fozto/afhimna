@@ -115,6 +115,7 @@ body.page-ready{opacity:1}
   border-radius:12px;
   border-left:4px solid #38bdf8;
   line-height:1.7;
+  text-align:justify;
 }
 
 #nextBtn{
@@ -735,14 +736,15 @@ function showReview(){
           Status: ${r.status.toUpperCase()}
         </div>
         <div style="
-          margin-top:10px;
-          padding:12px;
-          background:#020617;
-          border-left:4px solid #38bdf8;
-          border-radius:10px
-        ">
-          ${r.penjelasan}
-        </div>
+  margin-top:10px;
+  padding:12px;
+  background:#020617;
+  border-left:4px solid #38bdf8;
+  border-radius:10px;
+  text-align:justify;
+">
+  ${r.penjelasan}
+</div>
       </div>
     `;
   });
