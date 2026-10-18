@@ -1,0 +1,1063 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AFHIMNA</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Amiri&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Bokor&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
+
+<style>
+*{box-sizing:border-box}
+body{
+  margin:0;
+  min-height:100vh;
+  background:radial-gradient(circle at top,#020617,#000);
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  color:#e5e7eb;
+  font-family:"Times New Roman",serif;
+  opacity:0;
+  transition:opacity .8s ease;
+}
+body.page-ready{opacity:1}
+
+.quiz-box{
+  width:100%;
+  max-width:720px;
+  background:rgba(2,6,23,.96);
+  border:1px solid #1e293b;
+  border-radius:22px;
+  padding:25px;
+  box-shadow:0 0 40px rgba(0,0,0,.6);
+}
+#timerBox{
+  text-align:center;
+  margin-bottom:16px;
+  padding:12px;
+  border-radius:16px;
+  background:#020617;
+  border:1px solid #334155;
+  font-weight:bold;
+}
+#progressWrap{
+  margin-top:8px;
+  height:8px;
+  background:#020617;
+  border-radius:999px;
+  overflow:hidden;
+  border:1px solid #334155;
+}
+#progressBar{height:100%;width:100%;transition:width .3s linear}
+.progress-safe{background:#22c55e}
+.progress-warn{background:#eab308}
+.progress-danger{background:#ef4444}
+#timerBox.danger{color:#ef4444}
+#questionText{
+  font-family:"Amiri",serif;
+  font-size:1.45rem;
+  margin:22px 0;
+  text-align:center;
+}
+.answer-buttons{display:grid;gap:14px}
+.answer-buttons button{
+  padding:14px;
+  background:#020617;
+  border:1px solid #334155;
+  border-radius:16px;
+  color:#e5e7eb;
+  font-size:1.2rem;
+  cursor:pointer;
+  transition:.25s ease;
+  font-family:"Amiri",serif;
+}
+.answer-buttons button:hover{background:#1e293b}
+.answer-buttons button.correct{
+  border-color:#22c55e;
+  color:#22c55e;
+  box-shadow:0 0 12px rgba(34,197,94,.45);
+}
+.answer-buttons button.wrong{
+  background:#3f0d0d;
+  border-color:#ef4444;
+  color:#ef4444;
+}
+
+.score-board{
+  margin-top:20px;
+  padding:14px;
+  border-radius:16px;
+  background:#020617;
+  border:1px solid #334155;
+  text-align:center;
+}
+
+#result{
+  margin-top:18px;
+  padding:15px;
+  border-radius:16px;
+  border:1px solid #334155;
+  opacity:0;
+  transform:translateY(10px);
+  transition:.45s ease;
+}
+#result.show{opacity:1;transform:translateY(0)}
+.correct-text{color:#22c55e;font-weight:bold}
+.wrong-text{color:#ef4444;font-weight:bold}
+.explain{
+  margin-top:10px;
+  font-family:"Amiri",serif;
+  background:#020617;
+  padding:12px;
+  border-radius:12px;
+  border-left:4px solid #38bdf8;
+  line-height:1.7;
+}
+
+#nextBtn{
+  margin-top:22px;
+  width:100%;
+  padding:14px;
+  border:none;
+  border-radius:16px;
+  background:#2563eb;
+  color:white;
+  cursor:pointer;
+  opacity:0;
+  transform:translateY(8px);
+  transition:.3s ease;
+}
+#nextBtn:not(.hidden){opacity:1;transform:translateY(0)}
+.hidden{display:none}
+
+.fade-enter{opacity:0;transform:translateY(12px)}
+.fade-enter-active{opacity:1;transform:translateY(0);transition:.4s ease}
+.timer-warning{animation:pulseRed 1s infinite,shake .3s infinite}
+@keyframes pulseRed{0%{background:#020617}50%{background:#3f0d0d}100%{background:#020617}}
+@keyframes shake{0%{transform:0}25%{transform:translateX(-2px)}50%{transform:translateX(2px)}75%{transform:translateX(-2px)}100%{transform:0}}
+
+#startScreen{text-align:center}
+#startBtn{
+  padding:14px 26px;
+  font-size:1.1rem;
+  border:none;
+  border-radius:16px;
+  background:#22c55e;
+  color:#020617;
+  cursor:pointer;
+}
+#startBtn:hover{background:#16a34a}
+.fade-scale{
+  opacity:0;
+  transform:scale(.96) translateY(10px);
+  transition:.45s ease;
+}
+.fade-scale.show{
+  opacity:1;
+  transform:scale(1) translateY(0);
+}
+.question-fade{
+  opacity:0;
+  transform:translateY(12px);
+}
+.question-fade.show{
+  opacity:1;
+  transform:translateY(0);
+  transition:.35s ease;
+}
+.timer-danger{
+  animation:pulseRed .6s infinite, shake .15s infinite;
+}
+#reviewBox{
+  opacity:0;
+  transform:translateY(20px);
+  transition:opacity .45s ease, transform .45s ease;
+}
+
+#reviewBox.show{
+  opacity:1;
+  transform:translateY(0);
+}
+#reviewOverlay{
+  opacity:0;
+  transform:translateY(20px) scale(.98);
+  transition:opacity .45s ease, transform .45s ease;
+}
+
+#reviewOverlay.show{
+  opacity:1;
+  transform:translateY(0) scale(1);
+}
+#countdownOverlay{
+  position:fixed;
+  inset:0;
+  background:rgba(2,6,23,.98);
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  z-index:9999;
+  opacity:0;
+  transition:opacity .4s ease;
+}
+
+#countdownOverlay.show{
+  opacity:1;
+}
+
+#countdownNum{
+  font-size:6rem;
+  font-weight:bold;
+  color:#22c55e;
+  transform:scale(.7);
+  opacity:0;
+  animation:countPop 1s ease forwards;
+}
+	
+@keyframes countPop{
+  0%{opacity:0;transform:scale(.6)}
+  40%{opacity:1;transform:scale(1.1)}
+  100%{opacity:1;transform:scale(1)}
+}
+#finalBox{
+  margin-top:24px;
+  padding:22px;
+  background:#020617;
+  border:1px solid #334155;
+  border-radius:20px;
+  text-align:center;
+
+  opacity:0;
+  transform:translateY(20px) scale(.98);
+  transition:opacity .5s ease, transform .5s ease;
+}
+
+#finalBox.show{
+  opacity:1;
+  transform:translateY(0) scale(1);
+}
+
+.final-message{
+  margin-top:16px;
+  padding:14px;
+  border-left:4px solid #38bdf8;
+  background:#020617;
+  border-radius:12px;
+  font-style:italic;
+  line-height:1.6;
+}
+.final-actions{
+  margin-top:20px;
+  display:grid;
+  gap:14px;
+}
+
+.final-actions button{
+  padding:14px;
+  border:none;
+  border-radius:16px;
+  cursor:pointer;
+  font-size:1rem;
+  font-weight:600;
+  letter-spacing:.5px;
+  transition:all .25s ease;
+  color:white;
+  position:relative;
+  overflow:hidden;
+}
+#retryBtn{
+  background:linear-gradient(135deg,#f59e0b,#ca8a04);
+  box-shadow:0 4px 14px rgba(245,158,11,.4);
+}
+#retryBtn:hover{
+  transform:translateY(-2px);
+  box-shadow:0 8px 22px rgba(245,158,11,.55);
+}
+#retryBtn:active{
+  transform:scale(.96);
+}
+
+#explainBtn{
+  background:linear-gradient(135deg,#f59e0b,#ca8a04);
+  box-shadow:0 4px 14px rgba(245,158,11,.4);
+}
+#explainBtn:hover{
+  transform:translateY(-2px);
+  box-shadow:0 8px 22px rgba(245,158,11,.55);
+}
+#explainBtn:active{
+  transform:scale(.96);
+}
+#shareBtn{
+  background:linear-gradient(135deg,#f59e0b,#ca8a04);
+  box-shadow:0 4px 14px rgba(245,158,11,.4);
+}
+#shareBtn:hover{
+  transform:translateY(-2px);
+  box-shadow:0 8px 22px rgba(245,158,11,.55);
+}
+#shareBtn:active{
+  transform:scale(.96);
+}
+.review-item{
+  opacity:0;
+  transform:translateY(25px);
+  transition:opacity .5s ease, transform .5s ease;
+}
+
+.review-item.show{
+  opacity:1;
+  transform:translateY(0);
+}
+#HomeBtn{
+  background:linear-gradient(135deg,#f59e0b,#ca8a04);
+  box-shadow:0 4px 14px rgba(245,158,11,.4);
+}
+
+#HomeBtn:hover{
+  transform:translateY(-2px);
+  box-shadow:0 8px 22px rgba(245,158,11,.55);
+}
+
+#HomeBtn:active{
+  transform:scale(.96);
+}
+</style>
+</head>
+
+<body>
+<div class="quiz-box">
+
+<div id="timerBox" class="hidden">
+  ⏳ Waktu: <span id="timeNum">20</span> detik
+  <div id="progressWrap"><div id="progressBar"></div></div>
+</div>
+
+<div id="startScreen">
+  <h2>Selamat datang di</h2>
+  <h2>kuis AFHIMNA</h2>
+  <h2>Sudah siap?</h2>
+  <button id="startBtn" disabled>Mulai</button>
+</div>
+
+<div id="quiz" class="hidden">
+  <div id="questionText"></div>
+  <div id="answers" class="answer-buttons"></div>
+
+<div id="reviewBox" class="hidden"></div>
+
+  <div class="score-board">
+    Skor: <b id="scoreNum">0</b> / 100<br>
+    Benar: <span id="cNum">0</span> | Salah: <span id="wNum">0</span>
+  </div>
+
+  <div id="result" class="hidden"></div>
+  <button id="nextBtn" class="hidden">Selanjutnya</button>
+</div>
+<div id="finalBox" class="hidden">
+  <h3>📊 Ringkasan Akhir</h3>
+
+  <div class="final-content">
+  Nilai: <b id="finalScore">0</b> / 100<br>
+  Benar: <span id="finalCorrect">0</span><br>
+  Salah: <span id="finalWrong">0</span><br>
+  Persentase: <span id="finalPercent">0</span>%<br>
+  Waktu Penyelesaian: <span id="finalTime">0:00</span>
+</div>
+
+  <div id="finalMessage" class="final-message"></div>
+  <div class="final-actions">
+  <button id="retryBtn">Ulangi Kuis</button>
+  <button id="explainBtn"
+  onclick="window.open('https://afhimna.github.io/e4', '_blank')">
+  Penjelasan Tambahan
+</button>
+  <button id="shareBtn">Share nilai</button>
+  <button id="HomeBtn">Halaman utama</button>
+</div>
+</div>
+</div>
+<!-- ===== PRO SHARE CARD (HIDDEN) ===== -->
+<div id="proShareCard" style="
+  width:360px;
+  height:640px;
+  padding:30px;
+  background:linear-gradient(180deg,#020617,#0f172a);
+  border-radius:30px;
+  color:white;
+  font-family:Arial;
+  display:none;
+  position:fixed;
+  left:-9999px;
+  box-sizing:border-box;
+">
+
+  <h2 style="text-align:center;margin-bottom:30px">
+    📊 HASIL KUIS AFHIMNA
+  </h2>
+
+  <div style="font-size:20px;line-height:1.8">
+    <p>Skor: <b id="proScore"></b></p>
+    <p>Benar: <b id="proCorrect"></b></p>
+    <p>Salah: <b id="proWrong"></b></p>
+    <p>Persentase: <b id="proPercent"></b>%</p>
+    <p>Waktu: <b id="proTime"></b></p>
+  </div>
+
+  <div style="
+    position:absolute;
+    bottom:20px;
+    left:0;
+    right:0;
+    text-align:center;
+    font-size:14px;
+    opacity:.6;
+  ">
+    © 2025 Afhimna Dev
+  </div>
+</div>
+<audio id="DipikirSound" src="Dipikir.mp3?v=3" preload="auto"></audio>
+<audio id="alarmSound" src="alarm.mp3?v=3" preload="auto"></audio>
+<audio id="correctSound" src="correct.mp3?v=3" preload="auto"></audio>
+<audio id="wrongSound" src="wrong.mp3?v=3" preload="auto"></audio>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script>
+const POINT=5,TIME_LIMIT=20000;
+let data=[],idx=0,score=0,correct=0,wrongCount=0;
+let currentOptions=[],timer=null,timerActive=false;
+
+let quizStartTime = null;
+let quizEndTime = null;
+let quizDuration = 0; // dalam detik
+
+let reviewLog=[];
+let countdownInterval=null,remaining=TIME_LIMIT/1000;
+
+let alarmPlayed = false;
+
+const timeNum=document.getElementById("timeNum"),
+progressBar=document.getElementById("progressBar"),
+DipikirSound=document.getElementById("DipikirSound"),
+alarmSound=document.getElementById("alarmSound"),
+correctSound=document.getElementById("correctSound"),
+wrongSound=document.getElementById("wrongSound"),
+scoreNum=document.getElementById("scoreNum"),
+cNum=document.getElementById("cNum"),
+wNum=document.getElementById("wNum"),
+questionText=document.getElementById("questionText"),
+answers=document.getElementById("answers"),
+result=document.getElementById("result"),
+nextBtn=document.getElementById("nextBtn"),
+quiz=document.getElementById("quiz"),
+quizBox=document.querySelector(".quiz-box"),
+startScreen=document.getElementById("startScreen"),
+startBtn=document.getElementById("startBtn"),
+timerBox=document.getElementById("timerBox");
+
+fetch("soal.json").then(r=>r.json()).then(d=>{
+  data=d;startBtn.disabled=false;
+});
+
+function shuffle(arr){
+  for(let i=arr.length-1;i>0;i--){
+    const j=Math.floor(Math.random()*(i+1));
+    [arr[i],arr[j]]=[arr[j],arr[i]];
+  }
+}
+
+function startTimer(){
+
+  alarmPlayed = false;
+
+  quizBox.classList.remove("timer-warning");
+  alarmSound.pause();
+  alarmSound.currentTime = 0;
+
+  clearTimeout(timer);
+  clearInterval(countdownInterval);
+
+  timerActive = true;
+  remaining = TIME_LIMIT / 1000;
+  timeNum.textContent = remaining;
+  progressBar.style.width = "100%";
+
+	DipikirSound.currentTime = 0;
+  DipikirSound.play().catch(()=>{});
+
+	countdownInterval = setInterval(()=>{
+  if(!timerActive) return;
+
+  remaining--;
+  timeNum.textContent = remaining;
+	  
+  progressBar.style.width = (remaining / (TIME_LIMIT/1000)) * 100 + "%";
+    progressBar.className = "";
+    progressBar.classList.add(
+      remaining > 10 ? "progress-safe" :
+      remaining > 5  ? "progress-warn" :
+                       "progress-danger"
+    );
+
+    if(remaining <= 3){
+
+  quizBox.classList.remove("timer-warning");
+  quizBox.classList.add("timer-danger");
+
+  if(!alarmPlayed){
+    alarmSound.currentTime = 0;
+    alarmSound.play();
+    alarmPlayed = true;
+  }
+}
+else if(remaining <= 5){
+  quizBox.classList.add("timer-warning");
+}
+
+    if(remaining <= 0){
+      clearInterval(countdownInterval);
+    }
+  }, 1000);
+
+  timer = setTimeout(()=>{
+    if(timerActive) timeUp();
+  }, TIME_LIMIT);
+}
+
+function pauseTimer(){
+  timerActive = false;
+  clearTimeout(timer);
+  clearInterval(countdownInterval);
+
+  stopAllSounds(); 
+}
+
+function show(){
+  questionText.classList.remove("show");
+  answers.classList.remove("show");
+  questionText.classList.add("question-fade");
+  answers.classList.add("question-fade");
+
+  setTimeout(()=>{
+    const q=data[idx];
+
+    questionText.textContent=`Soal ${idx+1}: ${q.question}`;
+    answers.innerHTML="";
+    startTimer();
+
+    currentOptions=["A","B","C","D","E"].map((l,i)=>({
+      text:q["option_"+l],
+      isCorrect:i===Number(q.answer_index)
+    }));
+    shuffle(currentOptions);
+
+    currentOptions.forEach(opt=>{
+      const b=document.createElement("button");
+      b.textContent=opt.text;
+      b.onclick=()=>check(b,opt);
+      answers.appendChild(b);
+    });
+
+    requestAnimationFrame(()=>{
+      questionText.classList.add("show");
+      answers.classList.add("show");
+    });
+
+    result.classList.add("hidden");
+    nextBtn.classList.add("hidden");
+  },200);
+}
+
+function check(btn,opt){
+  if(!timerActive)return;
+  pauseTimer();
+  stopAllSounds();
+
+  reviewLog.push({
+    soal: data[idx].question,
+    jawabanBenar: data[idx]["option_" + ["A","B","C","D","E"][Number(data[idx].answer_index)]],
+    jawabanUser: opt.text,
+    status: opt.isCorrect ? "benar" : "salah",
+    penjelasan: data[idx].explanation
+  });
+
+  [...answers.children].forEach((b,i)=>{
+    if(currentOptions[i].isCorrect)b.classList.add("correct");
+    if(b===btn&&!opt.isCorrect)b.classList.add("wrong");
+    b.disabled=true;
+  });
+
+  result.classList.remove("hidden");
+  result.classList.add("show");
+  setTimeout(focusResult, 200);
+
+  if(opt.isCorrect){
+    correct++;score+=POINT;
+	
+	correctSound.currentTime = 0;
+	correctSound.play();
+	
+    result.innerHTML=`<div class="correct-text">✔ Jawaban Benar</div><div class="explain">${data[idx].explanation}</div>`;
+  }else{
+    wrongCount++;
+	
+	wrongSound.currentTime = 0;
+	wrongSound.play();
+  
+    result.innerHTML=`<div class="wrong-text">✖ Jawaban Salah</div><div class="explain">${data[idx].explanation}</div>`;
+  }
+
+  scoreNum.textContent=score;
+  cNum.textContent=correct;
+  wNum.textContent=wrongCount;
+  nextBtn.classList.remove("hidden");
+}
+
+function timeUp(){
+  pauseTimer();
+  stopAllSounds();
+
+  wrongSound.currentTime = 0; 
+  wrongSound.play();
+  
+  DipikirSound.pause();
+  DipikirSound.currentTime = 0;
+
+  quizBox.classList.remove("timer-warning","timer-danger");
+  alarmSound.pause();
+  alarmSound.currentTime = 0;
+
+  reviewLog.push({
+    soal: data[idx].question,
+    jawabanBenar: data[idx]["option_" + ["A","B","C","D","E"][Number(data[idx].answer_index)]],
+    jawabanUser: "(tidak dijawab)",
+    status: "timeout",
+    penjelasan: data[idx].explanation
+  });
+
+  wrongCount++;
+  result.classList.remove("hidden");
+  result.classList.add("show");
+  setTimeout(focusResult, 200);
+
+  result.innerHTML = `
+    <div class="wrong-text">⏰ Waktu habis</div>
+    <div class="explain">${data[idx].explanation}</div>
+  `;
+
+  wNum.textContent = wrongCount;
+  nextBtn.classList.remove("hidden");
+}
+
+nextBtn.onclick = ()=>{
+  idx++;
+
+  if(idx < data.length){
+    // 🔁 masih ada soal → lanjut kuis
+    show();
+  }else{
+    quiz.classList.add("hidden");      // (opsional UX, tapi disarankan)
+    nextBtn.classList.add("hidden");
+    timerBox.classList.add("hidden");
+
+    showReview();
+  }
+};
+
+startBtn.onclick=()=>{
+
+	DipikirSound.load();
+	alarmSound.load();
+	correctSound.load();
+	wrongSound.load();
+	
+  startScreen.classList.add("hidden");
+
+  startCountdown(()=>{
+
+  quizStartTime = Date.now();
+
+  quiz.classList.remove("hidden");
+  quiz.classList.add("fade-scale");
+  requestAnimationFrame(()=>quiz.classList.add("show"));
+  timerBox.classList.remove("hidden");
+  show();
+});
+};
+
+window.addEventListener("load",()=>document.body.classList.add("page-ready"));
+
+function focusResult(){
+  result.scrollIntoView({behavior:"smooth",block:"start"});
+}
+function showReview(){
+  const overlay=document.createElement("div");
+  overlay.id="reviewOverlay";
+  overlay.style.cssText=`
+    position:fixed;
+    inset:0;
+    background:rgba(2,6,23,.98);
+    overflow-y:auto;
+    z-index:9999;
+    padding:24px;
+    color:#e5e7eb;
+  `;
+
+  let html=`
+    <div style="max-width:720px;margin:auto">
+      <h2 style="text-align:center;margin-bottom:20px">
+        Ulasan Jawaban
+      </h2>
+  `;
+
+  reviewLog.forEach((r,i)=>{
+    const color=
+      r.status==="benar" ? "#22c55e" :
+      r.status==="timeout" ? "#eab308" :
+      "#ef4444";
+
+    html+=`
+      <div class="review-item" style="
+      background:#020617;
+      border:1px solid #334155;
+      border-left:6px solid ${color};
+      border-radius:16px;
+      padding:16px;
+      margin-bottom:16px;
+">
+        <div style="font-weight:bold;margin-bottom:8px">
+          ${i+1}. ${r.soal}
+        </div>
+        <div>Jawaban kamu: <b>${r.jawabanUser}</b></div>
+        <div>Jawaban benar: <b>${r.jawabanBenar}</b></div>
+        <div style="margin:6px 0;color:${color}">
+          Status: ${r.status.toUpperCase()}
+        </div>
+        <div style="
+          margin-top:10px;
+          padding:12px;
+          background:#020617;
+          border-left:4px solid #38bdf8;
+          border-radius:10px
+        ">
+          ${r.penjelasan}
+        </div>
+      </div>
+    `;
+  });
+
+  html+=`
+      <button id="closeReview"
+        style="
+          width:100%;
+          padding:14px;
+          border:none;
+          border-radius:16px;
+          background:#2563eb;
+          color:white;
+          font-size:1rem;
+          cursor:pointer;
+        ">
+        Tutup Review
+      </button>
+    </div>
+  `;
+
+  overlay.innerHTML=html;
+  document.body.appendChild(overlay);
+const items = overlay.querySelectorAll(".review-item");
+
+const observer = new IntersectionObserver((entries)=>{
+  entries.forEach(entry=>{
+    if(entry.isIntersecting){
+      entry.target.classList.add("show");
+      observer.unobserve(entry.target);
+    }
+  });
+},{
+  threshold:0.2
+});
+
+items.forEach(item=>{
+  observer.observe(item);
+});
+
+  requestAnimationFrame(()=>{
+    overlay.classList.add("show");
+  });
+  
+  document.getElementById("closeReview").onclick=()=>{
+
+  overlay.classList.remove("show");
+
+  setTimeout(()=>{
+
+    overlay.remove();
+
+    quizEndTime = Date.now();
+
+    quizDuration = Math.floor((quizEndTime - quizStartTime) / 1000);
+
+    showGlobalSummary();
+
+  },450);
+};
+
+  overlay.scrollTo({top:0,behavior:"smooth"});
+}
+function startCountdown(onFinish){
+  const overlay=document.createElement("div");
+  overlay.id="countdownOverlay";
+
+  const num=document.createElement("div");
+  num.id="countdownNum";
+
+  overlay.appendChild(num);
+  document.body.appendChild(overlay);
+
+  let count=3;
+
+  requestAnimationFrame(()=>overlay.classList.add("show"));
+
+  const run=()=>{
+    num.textContent = count > 0 ? count : "Mulai";
+    num.style.animation="none";
+    num.offsetHeight; // reset animation
+    num.style.animation="countPop 1s ease forwards";
+
+    if(count < 0){
+      overlay.classList.remove("show");
+      setTimeout(()=>{
+        overlay.remove();
+        onFinish();
+      },400);
+      return;
+    }
+
+    count--;
+    setTimeout(run,1000);
+  };
+
+  run();
+}
+function getFinalMessage(percent){
+  if(percent === 100){
+    return "MasyaAllah, semua jawaban benar. Penguasaan materi sangat baik.";
+  }
+  if(percent >= 75){
+    return "Hasil lumayan baik. Tinggal sedikit penguatan.";
+  }
+  if(percent >= 50){
+    return "Cukup baik. Perlu pengulangan agar pemahaman semakin kokoh.";
+  }
+  if(percent >= 25){
+    return "Masih perlu belajar. Jangan menyerah, perbaiki dan ulangi kembali.";
+  }
+  return "Jangan berkecil hati. Jadikan hasil ini sebagai motivasi.";
+}
+function stopAllSounds(){
+  DipikirSound.pause();
+  DipikirSound.currentTime = 0;
+
+  alarmSound.pause();
+  alarmSound.currentTime = 0;
+
+  correctSound.pause();
+  correctSound.currentTime = 0;
+
+  wrongSound.pause();
+  wrongSound.currentTime = 0;
+}
+function showGlobalSummary(){
+
+  const total = correct + wrongCount;
+  const percent = total === 0 ? 0 : Math.round((correct / total) * 100);
+
+  const minutes = Math.floor(quizDuration / 60);
+  const seconds = quizDuration % 60;
+  const formattedTime = minutes + ":" + (seconds < 10 ? "0" : "") + seconds;
+
+  document.getElementById("finalScore").textContent = score;
+  document.getElementById("finalCorrect").textContent = correct;
+  document.getElementById("finalWrong").textContent = wrongCount;
+  document.getElementById("finalPercent").textContent = percent;
+  document.getElementById("finalTime").textContent = formattedTime;
+
+  document.getElementById("finalMessage").textContent =
+    getFinalMessage(percent);
+
+  document.getElementById("proScore").textContent = score;
+  document.getElementById("proCorrect").textContent = correct;
+  document.getElementById("proWrong").textContent = wrongCount;
+  document.getElementById("proPercent").textContent = percent;
+  document.getElementById("proTime").textContent = formattedTime;
+
+  const box = document.getElementById("finalBox");
+  box.classList.remove("hidden");
+
+  requestAnimationFrame(()=>{
+    box.classList.add("show");
+  });
+	
+  box.scrollIntoView({behavior:"smooth",block:"center"});
+}
+document.addEventListener("click", function(e){
+
+   const percent = document.getElementById("finalPercent")?.textContent || "";
+
+  if(e.target.id === "retryBtn"){
+    location.reload();
+  }
+
+  if(e.target.id === "explainBtn"){
+    window.open("https://afhimna.github.io/e4qqq", "_blank");
+  }
+
+  if(e.target.id === "HomeBtn"){
+    window.open("https://afhimna.github.io/home", "_blank");
+  }
+
+  if(e.target.id === "shareBtn"){
+
+  generateProImage((blob) => {
+
+    const file = new File([blob], "Nilai-kuis-AFHIMNA.png", {
+      type: "image/png"
+    });
+
+    const shareText = `Saya mendapat nilai ${percent}% di Kuis AFHIMNA! Kunjungi: https://afhimna.github.io/home`;
+
+    if(navigator.share && navigator.canShare && navigator.canShare({ files: [file] })){
+
+      navigator.share({
+        title: "Nilai-kuis-AFHIMNA",
+        text: shareText,
+        files: [file]
+      }).catch(()=>{});
+
+    } else {
+
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = "Nilai-kuis-AFHIMNA.png";
+      a.click();
+
+      alert("Gambar diunduh. Silakan bagikan secara manual.");
+    }
+
+  });
+
+}
+}); 
+async function generateProImage(callback){
+
+  if (document.fonts) {
+    await document.fonts.load('700 40px "Bokor"');
+    await document.fonts.load('700 40px "Playfair Display"');
+    await document.fonts.ready;
+  }
+
+  const template = new Image();
+
+  template.crossOrigin = "anonymous";
+  template.src = "share-template.jpg";
+
+  template.onload = function(){
+
+    const scale = 2;
+    const canvas = document.createElement("canvas");
+    const ctx = canvas.getContext("2d");
+
+    canvas.width = template.width * scale;
+    canvas.height = template.height * scale;
+    ctx.scale(scale, scale);
+
+    ctx.drawImage(template, 0, 0);
+
+    const w = template.width;
+    const h = template.height;
+    const centerX = w / 2;
+    const rightX = w * 0.88;
+
+    const percent = parseInt(document.getElementById("finalPercent").textContent);
+    const waktu = document.getElementById("finalTime").textContent;
+    const SoalFashl = "4";
+
+    
+    let gradeText="", gradeColor="", motivation="";
+
+    if(percent >= 85){
+      gradeText = "EXCELLENT";
+      gradeColor = "#00ffd5";
+    } else if(percent >= 60){
+      gradeText = "GOOD JOB";
+      gradeColor = "#ffd700";
+    } else{
+      gradeText = "KEEP LEARNING";
+      gradeColor = "#ff4d4d";
+    }
+
+    const grad = ctx.createLinearGradient(0,0,0,h);
+    grad.addColorStop(0, "#ffffff");
+    grad.addColorStop(1, gradeColor);
+    
+    ctx.font = "700 250px 'Playfair Display'";
+    ctx.textAlign = "center";
+    ctx.fillStyle = gradeColor;   
+    ctx.shadowColor = "transparent";
+    ctx.shadowBlur = 0;
+    ctx.fillText(percent + "", centerX, h*0.30);
+
+    
+    ctx.font = "40px 'Playfair Display'";
+    ctx.fillStyle = gradeColor;
+    ctx.fillText(gradeText, centerX, h*0.40);
+
+    // =========================
+    ctx.strokeStyle = "rgba(255,255,255,0.2)";
+    ctx.lineWidth = 2;
+    ctx.beginPath();
+    ctx.moveTo(w*0.25, h*0.46);
+    ctx.lineTo(w*0.75, h*0.46);
+    ctx.stroke();
+	
+	ctx.textAlign = "left";
+	ctx.font = "600 60px 'Bokor'";
+	ctx.fillStyle = "#ffffff";
+	
+	const leftX = w * 0.24;
+	const startY = h * 0.60;
+	const lineGap = h * 0.05;
+	const rows = [
+  { label: "Jawaban Benar", value: correct },
+  { label: "Jawaban Salah", value: wrongCount },
+  { label: "Durasi pengerjaan", value: waktu },
+  { label: "Fashl", value: SoalFashl }
+];
+
+
+let maxWidth = 0;
+rows.forEach(row => {
+  const width = ctx.measureText(row.label).width;
+  if (width > maxWidth) maxWidth = width;
+});
+
+const colonX = leftX + maxWidth + 20;
+const valueX = colonX + 40;
+
+rows.forEach((row, i) => {
+  const y = startY + (i * lineGap);
+  ctx.fillText(row.label, leftX, y);
+  ctx.fillText(":", colonX, y);
+  ctx.fillText(row.value, valueX, y);
+});
+
+
+    canvas.toBlob(blob => callback(blob), "image/png", 1.0);
+  };
+}
+</script>
+</body>
+</html>
