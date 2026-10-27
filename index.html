@@ -138,9 +138,30 @@ body.page-ready{opacity:1}
 .fade-enter-active{opacity:1;transform:translateY(0);transition:.4s ease}
 .timer-warning{animation:pulseRed 1s infinite,shake .3s infinite}
 @keyframes pulseRed{0%{background:#020617}50%{background:#3f0d0d}100%{background:#020617}}
-@keyframes shake{0%{transform:0}25%{transform:translateX(-2px)}50%{transform:translateX(2px)}75%{transform:translateX(-2px)}100%{transform:0}}
+@keyframes shake{0%{transform:translateX(0)}25%{transform:translateX(-2px)}50%{transform:translateX(2px)}75%{transform:translateX(-2px)}100%{transform:translateX(0)}}
 
 #startScreen{text-align:center}
+
+/* ===== Info halaman awal ===== */
+.info-box{
+  margin:18px 0;
+  padding:14px;
+  border:1px solid #334155;
+  border-radius:16px;
+  background:#020617;
+  text-align:left;
+}
+.info-box div{
+  display:flex;
+  justify-content:space-between;
+  gap:12px;
+  padding:6px 0;
+  border-bottom:1px solid #1e293b;
+}
+.info-box div:last-child{border-bottom:none}
+.info-box span{color:#94a3b8}
+.info-rule{color:#94a3b8;font-size:.95rem;margin:0 0 16px}
+
 #startBtn{
   padding:14px 26px;
   font-size:1.1rem;
@@ -216,7 +237,7 @@ body.page-ready{opacity:1}
   opacity:0;
   animation:countPop 1s ease forwards;
 }
-	
+
 @keyframes countPop{
   0%{opacity:0;transform:scale(.6)}
   40%{opacity:1;transform:scale(1.1)}
@@ -339,6 +360,19 @@ body.page-ready{opacity:1}
 <div id="startScreen">
   <h2>Selamat datang di</h2>
   <h2>kuis AFHIMNA</h2>
+
+  <div class="info-box">
+    <div><span>Tema</span><b id="infoTema">-</b></div>
+    <div><span>Kitab</span><b id="infoKitab">-</b></div>
+    <div><span>Fashl</span><b id="infoFashl">-</b></div>
+    <div><span>Jumlah soal</span><b id="infoJumlah">...</b></div>
+    <div><span>Waktu per soal</span><b id="infoWaktu">-</b></div>
+  </div>
+
+  <p class="info-rule">
+    Soal yang tidak dijawab sebelum waktu habis dihitung salah.
+  </p>
+
   <h2>Sudah siap?</h2>
   <button id="startBtn" disabled>Mulai</button>
 </div>
@@ -371,61 +405,27 @@ body.page-ready{opacity:1}
   <div id="finalMessage" class="final-message"></div>
   <div class="final-actions">
   <button id="retryBtn">Ulangi Kuis</button>
-  <button id="explainBtn"
-  onclick="window.open('https://afhimna.github.io/e4', '_blank')">
-  Penjelasan Tambahan
-</button>
+  <button id="explainBtn">Penjelasan Tambahan</button>
   <button id="shareBtn">Share nilai</button>
   <button id="HomeBtn">Halaman utama</button>
 </div>
 </div>
 </div>
-<!-- ===== PRO SHARE CARD (HIDDEN) ===== -->
-<div id="proShareCard" style="
-  width:360px;
-  height:640px;
-  padding:30px;
-  background:linear-gradient(180deg,#020617,#0f172a);
-  border-radius:30px;
-  color:white;
-  font-family:Arial;
-  display:none;
-  position:fixed;
-  left:-9999px;
-  box-sizing:border-box;
-">
 
-  <h2 style="text-align:center;margin-bottom:30px">
-    📊 HASIL KUIS AFHIMNA
-  </h2>
-
-  <div style="font-size:20px;line-height:1.8">
-    <p>Skor: <b id="proScore"></b></p>
-    <p>Benar: <b id="proCorrect"></b></p>
-    <p>Salah: <b id="proWrong"></b></p>
-    <p>Persentase: <b id="proPercent"></b>%</p>
-    <p>Waktu: <b id="proTime"></b></p>
-  </div>
-
-  <div style="
-    position:absolute;
-    bottom:20px;
-    left:0;
-    right:0;
-    text-align:center;
-    font-size:14px;
-    opacity:.6;
-  ">
-    © 2025 Afhimna Dev
-  </div>
-</div>
 <audio id="DipikirSound" src="Dipikir.mp3?v=3" preload="auto"></audio>
 <audio id="alarmSound" src="alarm.mp3?v=3" preload="auto"></audio>
 <audio id="correctSound" src="correct.mp3?v=3" preload="auto"></audio>
 <audio id="wrongSound" src="wrong.mp3?v=3" preload="auto"></audio>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 <script>
-const POINT=5,TIME_LIMIT=20000;
+const TIME_LIMIT=20000;
+
+// ISI SESUAI MATERI KUIS
+const INFO = {
+  tema: "ISI TEMA DI SINI",
+  kitab: "ISI NAMA KITAB DI SINI",
+  fashl: "4"
+};
+
 let data=[],idx=0,score=0,correct=0,wrongCount=0;
 let currentOptions=[],timer=null,timerActive=false;
 
@@ -457,8 +457,15 @@ startScreen=document.getElementById("startScreen"),
 startBtn=document.getElementById("startBtn"),
 timerBox=document.getElementById("timerBox");
 
+document.getElementById("infoTema").textContent = INFO.tema;
+document.getElementById("infoKitab").textContent = INFO.kitab;
+document.getElementById("infoFashl").textContent = INFO.fashl;
+document.getElementById("infoWaktu").textContent = (TIME_LIMIT/1000) + " detik";
+
 fetch("soal.json").then(r=>r.json()).then(d=>{
-  data=d;startBtn.disabled=false;
+  data=d;
+  document.getElementById("infoJumlah").textContent = d.length;
+  startBtn.disabled=false;
 });
 
 function shuffle(arr){
@@ -472,7 +479,7 @@ function startTimer(){
 
   alarmPlayed = false;
 
-  quizBox.classList.remove("timer-warning");
+  quizBox.classList.remove("timer-warning","timer-danger");
   alarmSound.pause();
   alarmSound.currentTime = 0;
 
@@ -484,16 +491,16 @@ function startTimer(){
   timeNum.textContent = remaining;
   progressBar.style.width = "100%";
 
-	DipikirSound.currentTime = 0;
+  DipikirSound.currentTime = 0;
   DipikirSound.play().catch(()=>{});
 
-	countdownInterval = setInterval(()=>{
-  if(!timerActive) return;
+  countdownInterval = setInterval(()=>{
+    if(!timerActive) return;
 
-  remaining--;
-  timeNum.textContent = remaining;
-	  
-  progressBar.style.width = (remaining / (TIME_LIMIT/1000)) * 100 + "%";
+    remaining--;
+    timeNum.textContent = remaining;
+
+    progressBar.style.width = (remaining / (TIME_LIMIT/1000)) * 100 + "%";
     progressBar.className = "";
     progressBar.classList.add(
       remaining > 10 ? "progress-safe" :
@@ -503,18 +510,18 @@ function startTimer(){
 
     if(remaining <= 3){
 
-  quizBox.classList.remove("timer-warning");
-  quizBox.classList.add("timer-danger");
+      quizBox.classList.remove("timer-warning");
+      quizBox.classList.add("timer-danger");
 
-  if(!alarmPlayed){
-    alarmSound.currentTime = 0;
-    alarmSound.play();
-    alarmPlayed = true;
-  }
-}
-else if(remaining <= 5){
-  quizBox.classList.add("timer-warning");
-}
+      if(!alarmPlayed){
+        alarmSound.currentTime = 0;
+        alarmSound.play();
+        alarmPlayed = true;
+      }
+    }
+    else if(remaining <= 5){
+      quizBox.classList.add("timer-warning");
+    }
 
     if(remaining <= 0){
       clearInterval(countdownInterval);
@@ -531,7 +538,8 @@ function pauseTimer(){
   clearTimeout(timer);
   clearInterval(countdownInterval);
 
-  stopAllSounds(); 
+  quizBox.classList.remove("timer-warning","timer-danger");
+  stopAllSounds();
 }
 
 function show(){
@@ -567,6 +575,7 @@ function show(){
 
     result.classList.add("hidden");
     nextBtn.classList.add("hidden");
+    nextBtn.disabled = false;
   },200);
 }
 
@@ -594,18 +603,19 @@ function check(btn,opt){
   setTimeout(focusResult, 200);
 
   if(opt.isCorrect){
-    correct++;score+=POINT;
-	
-	correctSound.currentTime = 0;
-	correctSound.play();
-	
+    correct++;
+    score=Math.round(correct*100/data.length);
+
+    correctSound.currentTime = 0;
+    correctSound.play();
+
     result.innerHTML=`<div class="correct-text">✔ Jawaban Benar</div><div class="explain">${data[idx].explanation}</div>`;
   }else{
     wrongCount++;
-	
-	wrongSound.currentTime = 0;
-	wrongSound.play();
-  
+
+    wrongSound.currentTime = 0;
+    wrongSound.play();
+
     result.innerHTML=`<div class="wrong-text">✖ Jawaban Salah</div><div class="explain">${data[idx].explanation}</div>`;
   }
 
@@ -619,9 +629,9 @@ function timeUp(){
   pauseTimer();
   stopAllSounds();
 
-  wrongSound.currentTime = 0; 
+  wrongSound.currentTime = 0;
   wrongSound.play();
-  
+
   DipikirSound.pause();
   DipikirSound.currentTime = 0;
 
@@ -652,13 +662,19 @@ function timeUp(){
 }
 
 nextBtn.onclick = ()=>{
+  if(nextBtn.disabled) return;
+  nextBtn.disabled = true;
   idx++;
 
   if(idx < data.length){
-    // 🔁 masih ada soal → lanjut kuis
+    // masih ada soal → lanjut kuis
     show();
   }else{
-    quiz.classList.add("hidden");      // (opsional UX, tapi disarankan)
+    // durasi dihentikan di sini, sebelum ulasan dibuka
+    quizEndTime = Date.now();
+    quizDuration = Math.floor((quizEndTime - quizStartTime) / 1000);
+
+    quiz.classList.add("hidden");
     nextBtn.classList.add("hidden");
     timerBox.classList.add("hidden");
 
@@ -668,23 +684,23 @@ nextBtn.onclick = ()=>{
 
 startBtn.onclick=()=>{
 
-	DipikirSound.load();
-	alarmSound.load();
-	correctSound.load();
-	wrongSound.load();
-	
+  DipikirSound.load();
+  alarmSound.load();
+  correctSound.load();
+  wrongSound.load();
+
   startScreen.classList.add("hidden");
 
   startCountdown(()=>{
 
-  quizStartTime = Date.now();
+    quizStartTime = Date.now();
 
-  quiz.classList.remove("hidden");
-  quiz.classList.add("fade-scale");
-  requestAnimationFrame(()=>quiz.classList.add("show"));
-  timerBox.classList.remove("hidden");
-  show();
-});
+    quiz.classList.remove("hidden");
+    quiz.classList.add("fade-scale");
+    requestAnimationFrame(()=>quiz.classList.add("show"));
+    timerBox.classList.remove("hidden");
+    show();
+  });
 };
 
 window.addEventListener("load",()=>document.body.classList.add("page-ready"));
@@ -768,43 +784,39 @@ function showReview(){
 
   overlay.innerHTML=html;
   document.body.appendChild(overlay);
-const items = overlay.querySelectorAll(".review-item");
+  const items = overlay.querySelectorAll(".review-item");
 
-const observer = new IntersectionObserver((entries)=>{
-  entries.forEach(entry=>{
-    if(entry.isIntersecting){
-      entry.target.classList.add("show");
-      observer.unobserve(entry.target);
-    }
+  const observer = new IntersectionObserver((entries)=>{
+    entries.forEach(entry=>{
+      if(entry.isIntersecting){
+        entry.target.classList.add("show");
+        observer.unobserve(entry.target);
+      }
+    });
+  },{
+    threshold:0.2
   });
-},{
-  threshold:0.2
-});
 
-items.forEach(item=>{
-  observer.observe(item);
-});
+  items.forEach(item=>{
+    observer.observe(item);
+  });
 
   requestAnimationFrame(()=>{
     overlay.classList.add("show");
   });
-  
+
   document.getElementById("closeReview").onclick=()=>{
 
-  overlay.classList.remove("show");
+    overlay.classList.remove("show");
 
-  setTimeout(()=>{
+    setTimeout(()=>{
 
-    overlay.remove();
+      overlay.remove();
 
-    quizEndTime = Date.now();
+      showGlobalSummary();
 
-    quizDuration = Math.floor((quizEndTime - quizStartTime) / 1000);
-
-    showGlobalSummary();
-
-  },450);
-};
+    },450);
+  };
 
   overlay.scrollTo({top:0,behavior:"smooth"});
 }
@@ -889,24 +901,18 @@ function showGlobalSummary(){
   document.getElementById("finalMessage").textContent =
     getFinalMessage(percent);
 
-  document.getElementById("proScore").textContent = score;
-  document.getElementById("proCorrect").textContent = correct;
-  document.getElementById("proWrong").textContent = wrongCount;
-  document.getElementById("proPercent").textContent = percent;
-  document.getElementById("proTime").textContent = formattedTime;
-
   const box = document.getElementById("finalBox");
   box.classList.remove("hidden");
 
   requestAnimationFrame(()=>{
     box.classList.add("show");
   });
-	
+
   box.scrollIntoView({behavior:"smooth",block:"center"});
 }
 document.addEventListener("click", function(e){
 
-   const percent = document.getElementById("finalPercent")?.textContent || "";
+  const percent = document.getElementById("finalPercent")?.textContent || "";
 
   if(e.target.id === "retryBtn"){
     location.reload();
@@ -922,37 +928,37 @@ document.addEventListener("click", function(e){
 
   if(e.target.id === "shareBtn"){
 
-  generateProImage((blob) => {
+    generateProImage((blob) => {
 
-    const file = new File([blob], "Nilai-kuis-AFHIMNA.png", {
-      type: "image/png"
+      const file = new File([blob], "Nilai-kuis-AFHIMNA.png", {
+        type: "image/png"
+      });
+
+      const shareText = `Saya mendapat nilai ${percent}% di Kuis AFHIMNA! Kunjungi: https://afhimna.github.io/home`;
+
+      if(navigator.share && navigator.canShare && navigator.canShare({ files: [file] })){
+
+        navigator.share({
+          title: "Nilai-kuis-AFHIMNA",
+          text: shareText,
+          files: [file]
+        }).catch(()=>{});
+
+      } else {
+
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = "Nilai-kuis-AFHIMNA.png";
+        a.click();
+
+        alert("Gambar diunduh. Silakan bagikan secara manual.");
+      }
+
     });
 
-    const shareText = `Saya mendapat nilai ${percent}% di Kuis AFHIMNA! Kunjungi: https://afhimna.github.io/home`;
-
-    if(navigator.share && navigator.canShare && navigator.canShare({ files: [file] })){
-
-      navigator.share({
-        title: "Nilai-kuis-AFHIMNA",
-        text: shareText,
-        files: [file]
-      }).catch(()=>{});
-
-    } else {
-
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement("a");
-      a.href = url;
-      a.download = "Nilai-kuis-AFHIMNA.png";
-      a.click();
-
-      alert("Gambar diunduh. Silakan bagikan secara manual.");
-    }
-
-  });
-
-}
-}); 
+  }
+});
 async function generateProImage(callback){
 
   if (document.fonts) {
@@ -985,10 +991,9 @@ async function generateProImage(callback){
 
     const percent = parseInt(document.getElementById("finalPercent").textContent);
     const waktu = document.getElementById("finalTime").textContent;
-    const SoalFashl = "4";
+    const SoalFashl = INFO.fashl;
 
-    
-    let gradeText="", gradeColor="", motivation="";
+    let gradeText="", gradeColor="";
 
     if(percent >= 85){
       gradeText = "EXCELLENT";
@@ -1001,18 +1006,13 @@ async function generateProImage(callback){
       gradeColor = "#ff4d4d";
     }
 
-    const grad = ctx.createLinearGradient(0,0,0,h);
-    grad.addColorStop(0, "#ffffff");
-    grad.addColorStop(1, gradeColor);
-    
     ctx.font = "700 250px 'Playfair Display'";
     ctx.textAlign = "center";
-    ctx.fillStyle = gradeColor;   
+    ctx.fillStyle = gradeColor;
     ctx.shadowColor = "transparent";
     ctx.shadowBlur = 0;
     ctx.fillText(percent + "", centerX, h*0.30);
 
-    
     ctx.font = "40px 'Playfair Display'";
     ctx.fillStyle = gradeColor;
     ctx.fillText(gradeText, centerX, h*0.40);
@@ -1024,38 +1024,36 @@ async function generateProImage(callback){
     ctx.moveTo(w*0.25, h*0.46);
     ctx.lineTo(w*0.75, h*0.46);
     ctx.stroke();
-	
-	ctx.textAlign = "left";
-	ctx.font = "600 60px 'Bokor'";
-	ctx.fillStyle = "#ffffff";
-	
-	const leftX = w * 0.24;
-	const startY = h * 0.60;
-	const lineGap = h * 0.05;
-	const rows = [
-  { label: "Jawaban Benar", value: correct },
-  { label: "Jawaban Salah", value: wrongCount },
-  { label: "Durasi pengerjaan", value: waktu },
-  { label: "Fashl", value: SoalFashl }
-];
 
+    ctx.textAlign = "left";
+    ctx.font = "600 60px 'Bokor'";
+    ctx.fillStyle = "#ffffff";
 
-let maxWidth = 0;
-rows.forEach(row => {
-  const width = ctx.measureText(row.label).width;
-  if (width > maxWidth) maxWidth = width;
-});
+    const leftX = w * 0.24;
+    const startY = h * 0.60;
+    const lineGap = h * 0.05;
+    const rows = [
+      { label: "Jawaban Benar", value: correct },
+      { label: "Jawaban Salah", value: wrongCount },
+      { label: "Durasi pengerjaan", value: waktu },
+      { label: "Fashl", value: SoalFashl }
+    ];
 
-const colonX = leftX + maxWidth + 20;
-const valueX = colonX + 40;
+    let maxWidth = 0;
+    rows.forEach(row => {
+      const width = ctx.measureText(row.label).width;
+      if (width > maxWidth) maxWidth = width;
+    });
 
-rows.forEach((row, i) => {
-  const y = startY + (i * lineGap);
-  ctx.fillText(row.label, leftX, y);
-  ctx.fillText(":", colonX, y);
-  ctx.fillText(row.value, valueX, y);
-});
+    const colonX = leftX + maxWidth + 20;
+    const valueX = colonX + 40;
 
+    rows.forEach((row, i) => {
+      const y = startY + (i * lineGap);
+      ctx.fillText(row.label, leftX, y);
+      ctx.fillText(":", colonX, y);
+      ctx.fillText(row.value, valueX, y);
+    });
 
     canvas.toBlob(blob => callback(blob), "image/png", 1.0);
   };
