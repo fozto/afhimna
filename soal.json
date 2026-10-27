@@ -98,5 +98,205 @@
     "option_E": " الشَّيْخ ‏مُحَمَّد بْن سَعِيْد الْبُوْصِيْرِيّ‎",
     "answer_index": "4",
     "explanation": "Qasidah Burdah (dikenal juga dengan Al-Kawakib ad-Durriyyah fi Madh Khayr al-Bariyyah) disusun oleh:, Muhammad ibn Sa'id al-Busiri (w. 695 H), Beliau adalah seorang penyair sufi asal Mesir yang dikenal luas karena qasidah pujiannya kepada Nabi Muhammad ﷺ."
-  }
+  },
+  {
+    "question": "Siapa penyusun nadlom عَقِيْدَةُ الْعَوَام?",
+    "option_A": "السَّيِّد مُحَمَّد الْمَرْزُوْقِيّ",
+    "option_B": "السَّيِّد عَلِيّ الْمَرْزُوْقِيّ",
+    "option_C": "السَّيِّد أَحْمَد الْمَرْزُوْقِي",
+    "option_D": "السَّيِّد حُسَيْن الْمَرْزُوْقِيّ",
+    "option_E": "السَّيِّد حُمَيْد الْمَرْزُوْقِيّ",
+    "answer_index": "2",
+    "explanation": "Syaikh Ahmad bin Muhammad bin Romadlon Manshur bin Muhammad Al Marzuqi Al Hasani Al Maliki Al Asy'ari adalah guru besar ahli qiro'ah dari Makkah. Nasab beliau bersambung kepada Sayyidina Hasan, cucu Nabi Muhammad ﷺ. Beliau lahir di Shanbat, Mesir, tahun 1205 H. Sejak muda telah menghafal Al-Qur’an, kemudian mendalami qira’ah asyrah dan berbagai disiplin ilmu lainnya. Pada tahun 1261 H diangkat menjadi mufti mazhab Maliki. Beliau mengajar Al-Qur’an, tafsir, dan berbagai ilmu di masjid. Pada akhir hayatnya beliau mengajarkan Tafsir Al-Baidlawi. Di antara murid beliau adalah Sayyid Ahmad Zaini Dahlan. Semoga Allah merahmati beliau."
+  },
+  {
+    "question": "Siapa penyusun kitab ‎مَتْن الْآجُرُوْمِيَّة‎?",
+    "option_A": "أَبُو دَاوُد مُحَمَّد بْن دَاوُد الصَّنْهَاجِي",
+    "option_B": "أَبُو دَاوُد عَبْدُ الله بْن مُحَمَّد الصَّنْهَاجِي",
+    "option_C": "أَبُو مُحَمَّد دَاوُد بْن عَبْدِ الله بْن دَاوُد الصَّنْهَاجِيّ",
+    "option_D": "أَبُو عَبْدِ الله دَاوُد بْن دَاوُد بْن مُحَمَّد الصَّنْهَاجِيّ",
+    "option_E": "أَبُو عَبْدِ الله مُحَمَّد بْن مُحَمَّد بْن دَاوُد الصَّنْهَاجِيّ",
+    "answer_index": "4",
+    "explanation": "Syaikh Muhammad bin Muhammad bin Daud Ash-Shonhaji adalah salah satu pakar nahwu pada zamannya, Lahir di kota Fez (Maroko) tahun 674 H, “Ash-Shonhaji” adalah nisbat kepada salah satu kabilah di Maroko, beliau menyusun Matn al-Ājurrūmiyyah di dekat Ka'bah, Di antara karya lainnya adalah Fara'id al-Ma‘ani fi Syarh Hirz al-Ma‘ani yang membahas ilmu qira’ah,Wafat di Fez tahun 723 H رحمه الله تعالى."
+  },
+  {
+    "question": "Siapa penyusun kitab ‎الْأَمْثِلَة التَّصْرِيْفِيَّة‎?",
+    "option_A": "الشَّيْخ مُحَمَّد مَعْصُوْم بْن عَلِي",
+    "option_B": "الشَّيْخ مَعْصُوْم عَلِي بْن مُحَمَّد",
+    "option_C": "الشَّيْخ مُحَمَّد عَلِي بْن مَعْصُوْم",
+    "option_D": "الشَّيْخ مُحَمَّد بْن مَعْصُوْم عَلِي",
+    "option_E": "الشَّيْخ عَلِي بْن مُحَمَّد",
+    "answer_index": "0",
+    "explanation": "Syaikh Ma’shum bin Ali, dengan nama lengkap Muhammad Ma’shum bin Ali bin Abdul Jabbar, adalah salah satu ulama Nusantara yang lahir di Maskumambang, Gresik pada tahun 1305 H / 1887 M, Beliau merupakan Keponakan dari Syaikh Faqih Maskumambang sekaligus menantu dari Hadratussyaikh Hasyim Asy’ari, Di antara karya-karya beliau: Al-Amtsilah At-Tashrifiyah, Fath al-Qadir fi ‘Aja’ib al-Maqadir, Ad-Durus al-Falakiyah, Badi‘ah al-Mitsal, Beliau wafat pada 24 Ramadhan 1351 H / 8 Januari 1933 M dalam usia 46 tahun. رحمـه الله تعالى"
+  },
+  {
+    "question": "Nadlom ‎الْخَرِيْدَةُ الْبَهِيَّة‎ adalah nadlom tentang ilmu?",
+    "option_A": "تَجْوِيْد",
+    "option_B": "توحيد",
+    "option_C": "أَدَب",
+    "option_D": "نَحْو",
+    "option_E": "فِقْه",
+    "answer_index": "1",
+    "explanation": "Al-Kharidah al-Bahiyyah adalah nadzam dengan bahr rajaz yang menerangkan ilmu tauhid, Nadzam ini mengandung 10 bagian, yaitu: Muqaddimah, Bayan al-Hukm al-‘Aqli, Bayan al-Wajib wa al-Mustahil wa al-Jaiz, Bayan Huduts al-‘Alam, Bayan as-Shifat al-‘Isyrin, Bayan al-Jaiz fi Haqqihi Ta‘ala, Bayan al-Wajib fi Haqq ar-Rusul, Bayan ma Yajibu I‘tiqaduh, Khatimah, Bayan Wujub at-Taubah"
+  },
+  {
+    "question": "Siapa penyusun nadlom ‎الْخَرِيْدَةُ الْبَهِيَّة‎?",
+    "option_A": "الشَّيْخ مُحَمَّد بْن أَحْمَد بْن أَحْمَد الْعَدَوِيّ الْمَالِكِي",
+    "option_B": "الشَّيْخ أَحْمَد بْن مُحَمَّد بْن أَحْمَد الْعَدَوِيّ الْمَالِكِيّ",
+    "option_C": "الشَّيْخ مُحَمَّد بْن مُحَمَّد بْن أَحْمَد الْعَدَوِيّ الْمَالِكِي",
+    "option_D": "الشَّيْخ أَحْمَد بْن أَحْمَد بْن مُحَمَّد الْعَدَوِيّ الْمَالِكِي",
+    "option_E": "الشَّيْخ مُحَمَّد بْن مُحَمَّد بْن مُحَمَّد الْعَدَوِيّ الْمَالِكِي",
+    "answer_index": "1",
+    "explanation": "Syaikh Ahmad bin Muhammad bin Ahmad al-‘Adawi al-Maliki, masyhur dengan nama Ad-Dardir, lahir di Bani ‘Adi pada tahun 1127 H, Beliau menghafal Al-Qur’an sejak kecil dan belajar kepada para ulama Al-Azhar, Di antara karya-karyanya:,Matn fiqh madzhab Maliki,Tuhfah al-Ikhwan,Dan karya-karya lainnya, Beliau wafat pada bulan Rabi‘ul Awwal tahun 1201 H رحمه الله تعالى."
+  },
+  {
+    "question": "Berikut ini yang termasuk syarah kitab ‎الْآجُرُوْمِيَّة‎ adalah?",
+    "option_A": "فَتْحُ الْمُعِيْن",
+    "option_B": "تُحْفَةُ الْأَحْبَاب",
+    "option_C": "الْكَيْلَانِيّ",
+    "option_D": "إِيْضَاحُ الْمُبْهَم",
+    "option_E": "مُخْتَصَر جِدًّا",
+    "answer_index": "4",
+    "explanation": "Kitab yang dimaksud adalah Mukhtasar Jiddan, yaitu salah satu syarah atas Al-Ajurrumiyyah, Ciri khas kitab ini: Penjelasannya sangat ringkas (sesuai namanya: “ringkas sekali”), Cocok untuk mubtadi’ (pemula), Lebih banyak fokus pada kajian i‘rab."
+  },
+  {
+    "question": "Siapa penyusun kitab ‎مُخْتَصَر جِدًّا‎?",
+    "option_A": "الشَّيْخ مُحَمَّد ابْنُ مَالِك",
+    "option_B": "الشَّيْخ سَالِم الشَّاطِرِيّ",
+    "option_C": "الشَّيْخ سَعِيْد رَمَضَان الْبُوْطِيّ",
+    "option_D": "السَّيِّد أَحْمَد زَيْنِي دَحْلَان",
+    "option_E": "الشَّيْخ ابْنُ عَلَّان الصِّدِّيْقِيّ",
+    "answer_index": "3",
+    "explanation": "Beliau dikenal sebagai Ahmad Zayni Dahlan, seorang ulama besar bermadzhab Syafi‘i dan Mufti Makkah pada masanya, Lahir tahun 1232 H, Belajar kepada banyak ulama di Makkah, Yaman, Damaskus, dan Mesir, Menyusun kitab Mukhtasar Jiddan pada tahun 1291 H di Masjid Ibn ‘Abbas, Thaif, Wafat pada bulan Muharram tahun 1304 H, Dimakamkan di pemakaman Ma‘la, Makkah, Kitab Mukhtasar Jiddan sendiri adalah syarah ringkas atas Al-Ajurrumiyyah, sangat cocok untuk pemula dalam ilmu nahwu."
+  },
+  {
+    "question": "Kitab مَتْن التَّقْرِيْب‎ adalah kitab yang menjelaskan tentang ilmu?",
+    "option_A": "فِقْهُ الْمَذَاهِبِ الْأَرْبَعَة",
+    "option_B": "فِقْهُ الشَّافِعِيّ",
+    "option_C": "فِقْهُ الْمَالِكِيّ",
+    "option_D": "فِقْهُ الْحَدِيْث",
+    "option_E": "فِقْهُ الْحَنَفِيّ",
+    "answer_index": "1",
+    "explanation": "Matn at-Taqrib adalah kitab dasar dalam fiqh madzhab Syafi‘i, biasa dipelajari di tingkat pemula hingga menengah, Cakupan pembahasannya meliputi: Ibadah (thaharah, shalat, zakat, puasa, haji), Mu‘amalah, Faraidh dan wasiat, Munakahat, Jinayat dan hudud, Jihad, Ash-shaid wa adz-dzaba’ih, As-sabq wa ar-ramy, Al-aiman wa an-nudzur, Ditutup dengan pembahasan al-‘itq (pembebasan budak), Kitab ini menjadi salah satu kitab penting dalam kurikulum fiqh Syafi‘i tradisional."
+  },
+  {
+    "question": "Kitab الكيلاني adalah syarah dari kitab apa?",
+    "option_A": "مَتْن الْعِزِّيّ‎",
+    "option_B": "قَوَاعِدُ‏ الْإِعْرَاب‎",
+    "option_C": "نَظْمُ‏ التَّرْصِيْف‎",
+    "option_D": "مَتْنُ‏ الْبِنَاء وَالْأَسَاس‎",
+    "option_E": "لَامِيَّةُ‏ الْأَفْعَال‎",
+    "answer_index": "0",
+    "explanation": "Kitab شرح الكيلاني adalah kitab yang mensyarahi متن العِزِّيّ, yaitu kitab dasar dalam ilmu sharaf. Kitab syarah ini disusun oleh علي بن هشام الكيلاني, sedangkan متن العِزِّيّ disusun oleh عبد الوهاب بن إبراهيم الزنجاني  yang dikenal dengan nisbat العِزِّيّ. Kedua kitab tersebut termasuk rujukan penting dalam pembelajaran ilmu sharaf tingkat pemula. رحمهما الله تعالى. "
+  },
+  {
+    "question": "Siapa penyusun qosidah بُرْدَةُ الْمَدِيْح؟",
+    "option_A": "الشَّيْخ عَبْدُ‏ الرَّحْمن السُّيُوّطٍيّ‎",
+    "option_B": "الشَّيخ عَبّد الله الْفَاكِهِيّ‎",
+    "option_C": "الشَّيْخ إِبْرَاهِيْم التَّنُوْخِيّ‎",
+    "option_D": "الشَّيْخ مُحَمَّد الرَّمْلِيّ‎",
+    "option_E": " الشَّيْخ ‏مُحَمَّد بْن سَعِيْد الْبُوْصِيْرِيّ‎",
+    "answer_index": "4",
+    "explanation": "Qasidah Burdah (dikenal juga dengan Al-Kawakib ad-Durriyyah fi Madh Khayr al-Bariyyah) disusun oleh:, Muhammad ibn Sa'id al-Busiri (w. 695 H), Beliau adalah seorang penyair sufi asal Mesir yang dikenal luas karena qasidah pujiannya kepada Nabi Muhammad ﷺ."
+  },
+  {
+    "question": "Siapa penyusun nadlom عَقِيْدَةُ الْعَوَام?",
+    "option_A": "السَّيِّد مُحَمَّد الْمَرْزُوْقِيّ",
+    "option_B": "السَّيِّد عَلِيّ الْمَرْزُوْقِيّ",
+    "option_C": "السَّيِّد أَحْمَد الْمَرْزُوْقِي",
+    "option_D": "السَّيِّد حُسَيْن الْمَرْزُوْقِيّ",
+    "option_E": "السَّيِّد حُمَيْد الْمَرْزُوْقِيّ",
+    "answer_index": "2",
+    "explanation": "Syaikh Ahmad bin Muhammad bin Romadlon Manshur bin Muhammad Al Marzuqi Al Hasani Al Maliki Al Asy'ari adalah guru besar ahli qiro'ah dari Makkah. Nasab beliau bersambung kepada Sayyidina Hasan, cucu Nabi Muhammad ﷺ. Beliau lahir di Shanbat, Mesir, tahun 1205 H. Sejak muda telah menghafal Al-Qur’an, kemudian mendalami qira’ah asyrah dan berbagai disiplin ilmu lainnya. Pada tahun 1261 H diangkat menjadi mufti mazhab Maliki. Beliau mengajar Al-Qur’an, tafsir, dan berbagai ilmu di masjid. Pada akhir hayatnya beliau mengajarkan Tafsir Al-Baidlawi. Di antara murid beliau adalah Sayyid Ahmad Zaini Dahlan. Semoga Allah merahmati beliau."
+  },
+  {
+    "question": "Siapa penyusun kitab ‎مَتْن الْآجُرُوْمِيَّة‎?",
+    "option_A": "أَبُو دَاوُد مُحَمَّد بْن دَاوُد الصَّنْهَاجِي",
+    "option_B": "أَبُو دَاوُد عَبْدُ الله بْن مُحَمَّد الصَّنْهَاجِي",
+    "option_C": "أَبُو مُحَمَّد دَاوُد بْن عَبْدِ الله بْن دَاوُد الصَّنْهَاجِيّ",
+    "option_D": "أَبُو عَبْدِ الله دَاوُد بْن دَاوُد بْن مُحَمَّد الصَّنْهَاجِيّ",
+    "option_E": "أَبُو عَبْدِ الله مُحَمَّد بْن مُحَمَّد بْن دَاوُد الصَّنْهَاجِيّ",
+    "answer_index": "4",
+    "explanation": "Syaikh Muhammad bin Muhammad bin Daud Ash-Shonhaji adalah salah satu pakar nahwu pada zamannya, Lahir di kota Fez (Maroko) tahun 674 H, “Ash-Shonhaji” adalah nisbat kepada salah satu kabilah di Maroko, beliau menyusun Matn al-Ājurrūmiyyah di dekat Ka'bah, Di antara karya lainnya adalah Fara'id al-Ma‘ani fi Syarh Hirz al-Ma‘ani yang membahas ilmu qira’ah,Wafat di Fez tahun 723 H رحمه الله تعالى."
+  },
+  {
+    "question": "Siapa penyusun kitab ‎الْأَمْثِلَة التَّصْرِيْفِيَّة‎?",
+    "option_A": "الشَّيْخ مُحَمَّد مَعْصُوْم بْن عَلِي",
+    "option_B": "الشَّيْخ مَعْصُوْم عَلِي بْن مُحَمَّد",
+    "option_C": "الشَّيْخ مُحَمَّد عَلِي بْن مَعْصُوْم",
+    "option_D": "الشَّيْخ مُحَمَّد بْن مَعْصُوْم عَلِي",
+    "option_E": "الشَّيْخ عَلِي بْن مُحَمَّد",
+    "answer_index": "0",
+    "explanation": "Syaikh Ma’shum bin Ali, dengan nama lengkap Muhammad Ma’shum bin Ali bin Abdul Jabbar, adalah salah satu ulama Nusantara yang lahir di Maskumambang, Gresik pada tahun 1305 H / 1887 M, Beliau merupakan Keponakan dari Syaikh Faqih Maskumambang sekaligus menantu dari Hadratussyaikh Hasyim Asy’ari, Di antara karya-karya beliau: Al-Amtsilah At-Tashrifiyah, Fath al-Qadir fi ‘Aja’ib al-Maqadir, Ad-Durus al-Falakiyah, Badi‘ah al-Mitsal, Beliau wafat pada 24 Ramadhan 1351 H / 8 Januari 1933 M dalam usia 46 tahun. رحمـه الله تعالى"
+  },
+  {
+    "question": "Nadlom ‎الْخَرِيْدَةُ الْبَهِيَّة‎ adalah nadlom tentang ilmu?",
+    "option_A": "تَجْوِيْد",
+    "option_B": "توحيد",
+    "option_C": "أَدَب",
+    "option_D": "نَحْو",
+    "option_E": "فِقْه",
+    "answer_index": "1",
+    "explanation": "Al-Kharidah al-Bahiyyah adalah nadzam dengan bahr rajaz yang menerangkan ilmu tauhid, Nadzam ini mengandung 10 bagian, yaitu: Muqaddimah, Bayan al-Hukm al-‘Aqli, Bayan al-Wajib wa al-Mustahil wa al-Jaiz, Bayan Huduts al-‘Alam, Bayan as-Shifat al-‘Isyrin, Bayan al-Jaiz fi Haqqihi Ta‘ala, Bayan al-Wajib fi Haqq ar-Rusul, Bayan ma Yajibu I‘tiqaduh, Khatimah, Bayan Wujub at-Taubah"
+  },
+  {
+    "question": "Siapa penyusun nadlom ‎الْخَرِيْدَةُ الْبَهِيَّة‎?",
+    "option_A": "الشَّيْخ مُحَمَّد بْن أَحْمَد بْن أَحْمَد الْعَدَوِيّ الْمَالِكِي",
+    "option_B": "الشَّيْخ أَحْمَد بْن مُحَمَّد بْن أَحْمَد الْعَدَوِيّ الْمَالِكِيّ",
+    "option_C": "الشَّيْخ مُحَمَّد بْن مُحَمَّد بْن أَحْمَد الْعَدَوِيّ الْمَالِكِي",
+    "option_D": "الشَّيْخ أَحْمَد بْن أَحْمَد بْن مُحَمَّد الْعَدَوِيّ الْمَالِكِي",
+    "option_E": "الشَّيْخ مُحَمَّد بْن مُحَمَّد بْن مُحَمَّد الْعَدَوِيّ الْمَالِكِي",
+    "answer_index": "1",
+    "explanation": "Syaikh Ahmad bin Muhammad bin Ahmad al-‘Adawi al-Maliki, masyhur dengan nama Ad-Dardir, lahir di Bani ‘Adi pada tahun 1127 H, Beliau menghafal Al-Qur’an sejak kecil dan belajar kepada para ulama Al-Azhar, Di antara karya-karyanya:,Matn fiqh madzhab Maliki,Tuhfah al-Ikhwan,Dan karya-karya lainnya, Beliau wafat pada bulan Rabi‘ul Awwal tahun 1201 H رحمه الله تعالى."
+  },
+  {
+    "question": "Berikut ini yang termasuk syarah kitab ‎الْآجُرُوْمِيَّة‎ adalah?",
+    "option_A": "فَتْحُ الْمُعِيْن",
+    "option_B": "تُحْفَةُ الْأَحْبَاب",
+    "option_C": "الْكَيْلَانِيّ",
+    "option_D": "إِيْضَاحُ الْمُبْهَم",
+    "option_E": "مُخْتَصَر جِدًّا",
+    "answer_index": "4",
+    "explanation": "Kitab yang dimaksud adalah Mukhtasar Jiddan, yaitu salah satu syarah atas Al-Ajurrumiyyah, Ciri khas kitab ini: Penjelasannya sangat ringkas (sesuai namanya: “ringkas sekali”), Cocok untuk mubtadi’ (pemula), Lebih banyak fokus pada kajian i‘rab."
+  },
+  {
+    "question": "Siapa penyusun kitab ‎مُخْتَصَر جِدًّا‎?",
+    "option_A": "الشَّيْخ مُحَمَّد ابْنُ مَالِك",
+    "option_B": "الشَّيْخ سَالِم الشَّاطِرِيّ",
+    "option_C": "الشَّيْخ سَعِيْد رَمَضَان الْبُوْطِيّ",
+    "option_D": "السَّيِّد أَحْمَد زَيْنِي دَحْلَان",
+    "option_E": "الشَّيْخ ابْنُ عَلَّان الصِّدِّيْقِيّ",
+    "answer_index": "3",
+    "explanation": "Beliau dikenal sebagai Ahmad Zayni Dahlan, seorang ulama besar bermadzhab Syafi‘i dan Mufti Makkah pada masanya, Lahir tahun 1232 H, Belajar kepada banyak ulama di Makkah, Yaman, Damaskus, dan Mesir, Menyusun kitab Mukhtasar Jiddan pada tahun 1291 H di Masjid Ibn ‘Abbas, Thaif, Wafat pada bulan Muharram tahun 1304 H, Dimakamkan di pemakaman Ma‘la, Makkah, Kitab Mukhtasar Jiddan sendiri adalah syarah ringkas atas Al-Ajurrumiyyah, sangat cocok untuk pemula dalam ilmu nahwu."
+  },
+  {
+    "question": "Kitab مَتْن التَّقْرِيْب‎ adalah kitab yang menjelaskan tentang ilmu?",
+    "option_A": "فِقْهُ الْمَذَاهِبِ الْأَرْبَعَة",
+    "option_B": "فِقْهُ الشَّافِعِيّ",
+    "option_C": "فِقْهُ الْمَالِكِيّ",
+    "option_D": "فِقْهُ الْحَدِيْث",
+    "option_E": "فِقْهُ الْحَنَفِيّ",
+    "answer_index": "1",
+    "explanation": "Matn at-Taqrib adalah kitab dasar dalam fiqh madzhab Syafi‘i, biasa dipelajari di tingkat pemula hingga menengah, Cakupan pembahasannya meliputi: Ibadah (thaharah, shalat, zakat, puasa, haji), Mu‘amalah, Faraidh dan wasiat, Munakahat, Jinayat dan hudud, Jihad, Ash-shaid wa adz-dzaba’ih, As-sabq wa ar-ramy, Al-aiman wa an-nudzur, Ditutup dengan pembahasan al-‘itq (pembebasan budak), Kitab ini menjadi salah satu kitab penting dalam kurikulum fiqh Syafi‘i tradisional."
+  },
+  {
+    "question": "Kitab الكيلاني adalah syarah dari kitab apa?",
+    "option_A": "مَتْن الْعِزِّيّ‎",
+    "option_B": "قَوَاعِدُ‏ الْإِعْرَاب‎",
+    "option_C": "نَظْمُ‏ التَّرْصِيْف‎",
+    "option_D": "مَتْنُ‏ الْبِنَاء وَالْأَسَاس‎",
+    "option_E": "لَامِيَّةُ‏ الْأَفْعَال‎",
+    "answer_index": "0",
+    "explanation": "Kitab شرح الكيلاني adalah kitab yang mensyarahi متن العِزِّيّ, yaitu kitab dasar dalam ilmu sharaf. Kitab syarah ini disusun oleh علي بن هشام الكيلاني, sedangkan متن العِزِّيّ disusun oleh عبد الوهاب بن إبراهيم الزنجاني  yang dikenal dengan nisbat العِزِّيّ. Kedua kitab tersebut termasuk rujukan penting dalam pembelajaran ilmu sharaf tingkat pemula. رحمهما الله تعالى. "
+  },
+  {
+    "question": "Siapa penyusun qosidah بُرْدَةُ الْمَدِيْح؟",
+    "option_A": "الشَّيْخ عَبْدُ‏ الرَّحْمن السُّيُوّطٍيّ‎",
+    "option_B": "الشَّيخ عَبّد الله الْفَاكِهِيّ‎",
+    "option_C": "الشَّيْخ إِبْرَاهِيْم التَّنُوْخِيّ‎",
+    "option_D": "الشَّيْخ مُحَمَّد الرَّمْلِيّ‎",
+    "option_E": " الشَّيْخ ‏مُحَمَّد بْن سَعِيْد الْبُوْصِيْرِيّ‎",
+    "answer_index": "4",
+    "explanation": "Qasidah Burdah (dikenal juga dengan Al-Kawakib ad-Durriyyah fi Madh Khayr al-Bariyyah) disusun oleh:, Muhammad ibn Sa'id al-Busiri (w. 695 H), Beliau adalah seorang penyair sufi asal Mesir yang dikenal luas karena qasidah pujiannya kepada Nabi Muhammad ﷺ."
+  },
 ]
