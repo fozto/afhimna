@@ -43,7 +43,7 @@ body.page-ready{opacity:1}
 @keyframes floatOrb{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(60px,40px) scale(1.2)}}
 
 .quiz-box{
-  position:relative;z-index:1;overflow:hidden;
+  position:relative;z-index:1;overflow:hidden;overflow:clip;
   width:100%;max-width:720px;margin:16px;
   background:var(--card);backdrop-filter:blur(10px);
   border:1px solid var(--border2);border-radius:22px;padding:25px;
@@ -110,7 +110,7 @@ body.page-ready{opacity:1}
 }
 
 #nextBtn{
-  position:relative;overflow:hidden;margin-top:22px;width:100%;padding:14px;border:none;border-radius:16px;
+  position:sticky;bottom:12px;z-index:5;overflow:hidden;margin-top:22px;width:100%;padding:14px;border:none;border-radius:16px;box-shadow:0 6px 18px rgba(0,0,0,.35);
   background:linear-gradient(135deg,#2563eb,#38bdf8);color:white;cursor:pointer;
   opacity:0;transform:translateY(8px);transition:.3s ease;
 }
@@ -217,7 +217,6 @@ body.page-ready{opacity:1}
   opacity:0;transform:translateY(20px) scale(.98);transition:opacity .5s ease,transform .5s ease;
 }
 #finalBox.show{opacity:1;transform:translateY(0) scale(1)}
-#finalScore{font-size:2.2rem;color:var(--accent2);text-shadow:0 0 18px rgba(34,197,94,.45)}
 .final-message{margin-top:16px;padding:14px;border-left:4px solid var(--accent);background:var(--panel);border-radius:12px;font-style:italic;line-height:1.6}
 .final-actions{margin-top:20px;display:grid;gap:14px}
 .final-actions button{
@@ -231,6 +230,43 @@ body.page-ready{opacity:1}
 .review-item{opacity:0;transform:translateY(25px);transition:opacity .5s ease,transform .5s ease}
 .review-item.show{opacity:1;transform:translateY(0)}
 #confetti{position:fixed;inset:0;pointer-events:none;z-index:10000}
+
+/* ===== Ringkasan akhir: lingkaran progres ===== */
+.ring-wrap{position:relative;width:170px;height:170px;margin:6px auto 18px}
+.ring{width:100%;height:100%;display:block}
+.ring-bg{fill:none;stroke:var(--border2);stroke-width:10}
+.ring-fg{
+  fill:none;stroke:var(--ringc,#22c55e);stroke-width:10;stroke-linecap:round;
+  filter:drop-shadow(0 0 5px var(--ringc,#22c55e));
+  transition:stroke-dashoffset 1.4s cubic-bezier(.22,.61,.36,1);
+}
+.ring-center{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center}
+#finalScore{font-size:2.8rem;line-height:1;color:var(--ringc,var(--accent2))}
+.ring-center small{color:var(--muted);margin-top:4px;font-size:.85rem}
+.final-stats{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+.stat{padding:12px 8px;border-radius:14px;background:var(--hover);border:1px solid var(--border2);display:flex;flex-direction:column;gap:4px}
+.stat b{font-size:1.45rem;line-height:1.1}
+.stat span{font-size:.8rem;color:var(--muted)}
+.s-ok b{color:var(--accent2)}
+.s-bad b{color:#ef4444}
+
+/* ===== Tab filter review ===== */
+.review-tabs{
+  position:sticky;top:0;z-index:3;display:flex;gap:8px;justify-content:center;flex-wrap:wrap;
+  padding:10px 0 12px;margin-bottom:8px;background:var(--overlay);
+}
+.rtab{
+  padding:8px 14px;border-radius:999px;border:1px solid var(--border);background:var(--panel);
+  color:var(--text);font-size:.9rem;font-family:inherit;cursor:pointer;transition:.25s ease;
+}
+.rtab:hover{border-color:var(--accent)}
+.rtab.active{background:var(--act-bg);color:var(--act-text);border-color:transparent}
+
+/* ===== Mode cerah: kartu info satu keluarga warna (navy) ===== */
+[data-theme="light"] .icard{
+  background:linear-gradient(145deg,#1d4ed8,#1e3a8a 60%,#172554);
+  box-shadow:0 0 16px rgba(30,58,138,.3);
+}
 </style>
 </head>
 
@@ -286,13 +322,20 @@ body.page-ready{opacity:1}
 <div id="finalBox" class="hidden">
   <h3>📊 Ringkasan Akhir</h3>
 
-  <div class="final-content">
-  Nilai: <b id="finalScore">0</b> / 100<br>
-  Benar: <span id="finalCorrect">0</span><br>
-  Salah: <span id="finalWrong">0</span><br>
-  Persentase: <span id="finalPercent">0</span>%<br>
-  Waktu Penyelesaian: <span id="finalTime">0:00</span>
-</div>
+  <div class="ring-wrap">
+    <svg class="ring" viewBox="0 0 120 120">
+      <circle class="ring-bg" cx="60" cy="60" r="52"/>
+      <circle class="ring-fg" id="ringFg" cx="60" cy="60" r="52" transform="rotate(-90 60 60)"/>
+    </svg>
+    <div class="ring-center"><b id="finalScore">0</b><small>/ 100</small></div>
+  </div>
+
+  <div class="final-stats">
+    <div class="stat s-ok"><b id="finalCorrect">0</b><span>Benar</span></div>
+    <div class="stat s-bad"><b id="finalWrong">0</b><span>Salah</span></div>
+    <div class="stat"><b><span id="finalPercent">0</span>%</b><span>Persentase</span></div>
+    <div class="stat"><b id="finalTime">0:00</b><span>Waktu penyelesaian</span></div>
+  </div>
 
   <div id="finalMessage" class="final-message"></div>
   <div class="final-actions">
@@ -700,11 +743,22 @@ function showReview(){
     color:var(--text);
   `;
 
+  const nSalah = reviewLog.filter(r=>r.status==="salah").length;
+  const nTimeout = reviewLog.filter(r=>r.status==="timeout").length;
+
   let html=`
     <div style="max-width:720px;margin:auto">
-      <h2 style="text-align:center;margin-bottom:20px">
+      <h2 style="text-align:center;margin-bottom:12px">
         Ulasan Jawaban
       </h2>
+      <div class="review-tabs">
+        <button class="rtab active" data-filter="all">Semua (${reviewLog.length})</button>
+        <button class="rtab" data-filter="salah">Salah (${nSalah})</button>
+        <button class="rtab" data-filter="timeout">Waktu habis (${nTimeout})</button>
+      </div>
+      <div id="reviewEmpty" class="hidden" style="text-align:center;color:var(--muted);padding:24px">
+        Tidak ada soal pada kategori ini.
+      </div>
   `;
 
   reviewLog.forEach((r,i)=>{
@@ -714,7 +768,7 @@ function showReview(){
       "#ef4444";
 
     html+=`
-      <div class="review-item" style="
+      <div class="review-item" data-status="${r.status}" style="
       background:var(--panel);
       border:1px solid var(--border);
       border-left:6px solid ${color};
@@ -778,6 +832,21 @@ function showReview(){
 
   items.forEach(item=>{
     observer.observe(item);
+  });
+
+  overlay.querySelectorAll(".rtab").forEach(tab=>{
+    tab.addEventListener("click",()=>{
+      overlay.querySelectorAll(".rtab").forEach(t=>t.classList.toggle("active",t===tab));
+      const f = tab.dataset.filter;
+      let shown = 0;
+      items.forEach(it=>{
+        const ok = f === "all" || it.dataset.status === f;
+        it.style.display = ok ? "" : "none";
+        if(ok) shown++;
+      });
+      overlay.querySelector("#reviewEmpty").classList.toggle("hidden", shown > 0);
+      overlay.scrollTo({top:0,behavior:"smooth"});
+    });
   });
 
   requestAnimationFrame(()=>{
@@ -862,6 +931,29 @@ function stopAllSounds(){
   wrongSound.pause();
   wrongSound.currentTime = 0;
 }
+function animateRing(sc,pct){
+  const C = 2 * Math.PI * 52;
+  const box = document.getElementById("finalBox");
+  const fg = document.getElementById("ringFg");
+  const num = document.getElementById("finalScore");
+  const color = pct >= 85 ? "#22c55e" : pct >= 60 ? "#eab308" : "#ef4444";
+
+  box.style.setProperty("--ringc", color);
+  fg.style.strokeDasharray = C;
+  fg.style.strokeDashoffset = C;
+
+  setTimeout(()=>{
+    fg.style.strokeDashoffset = C * (1 - Math.min(sc,100) / 100);
+  },250);
+
+  const dur = 1400, t0 = performance.now();
+  (function tick(now){
+    const p = Math.min((now - t0) / dur, 1);
+    const e = 1 - Math.pow(1 - p, 3);
+    num.textContent = Math.round(sc * e);
+    if(p < 1) requestAnimationFrame(tick);
+  })(t0);
+}
 function showGlobalSummary(){
 
   const total = correct + wrongCount;
@@ -871,7 +963,6 @@ function showGlobalSummary(){
   const seconds = quizDuration % 60;
   const formattedTime = minutes + ":" + (seconds < 10 ? "0" : "") + seconds;
 
-  document.getElementById("finalScore").textContent = score;
   document.getElementById("finalCorrect").textContent = correct;
   document.getElementById("finalWrong").textContent = wrongCount;
   document.getElementById("finalPercent").textContent = percent;
@@ -886,6 +977,8 @@ function showGlobalSummary(){
   requestAnimationFrame(()=>{
     box.classList.add("show");
   });
+
+  animateRing(score, percent);
 
   box.scrollIntoView({behavior:"smooth",block:"center"});
 
