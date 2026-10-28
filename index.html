@@ -138,7 +138,6 @@ body.page-ready{opacity:1}
 .theme-switch button:hover{opacity:1;transform:scale(1.1)}
 .theme-switch button.active{opacity:1;background:linear-gradient(135deg,var(--accent),var(--accent2));box-shadow:0 0 14px rgba(56,189,248,.45)}
 
-/* ===== Info halaman awal ===== */
 /* ===== Kartu info ===== */
 .info-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:14px;margin:20px 0}
 .icard{
@@ -251,11 +250,11 @@ body.page-ready{opacity:1}
   </div>
 
   <div class="info-grid">
-    <div class="icard c-tema"><i class="ic">🤲</i><small>Tema</small><b id="infoTema">-</b><span></span></div>
-    <div class="icard c-kitab"><i class="ic">📖</i><small>Kitab</small><b id="infoKitab">-</b><small class="ar"></small></div>
-    <div class="icard c-fashl"><i class="ic">🔖</i><small>Fashl</small><b id="infoFashl">-</b><small class="ar"></small></div>
+    <div class="icard c-tema"><i class="ic">🤲</i><small>Tema</small><b id="infoTema">...</b><span></span></div>
+    <div class="icard c-kitab"><i class="ic">📖</i><small>Kitab</small><b id="infoKitab">...</b><small class="ar"></small></div>
+    <div class="icard c-fashl"><i class="ic">🔖</i><small>Fashl</small><b id="infoFashl">...</b><small class="ar"></small></div>
     <div class="icard c-jumlah"><i class="ic">❓</i><small>Jumlah soal</small><b id="infoJumlah">...</b><small class="ar"></small></div>
-    <div class="icard c-waktu"><i class="ic">⏱️</i><small>Waktu per soal</small><b id="infoWaktu">-</b><small class="ar"></small></div>
+    <div class="icard c-waktu"><i class="ic">⏱️</i><small>Waktu per soal</small><b id="infoWaktu">...</b><small class="ar"></small></div>
   </div>
 
   <p class="info-rule">
@@ -306,13 +305,14 @@ body.page-ready{opacity:1}
 <audio id="correctSound" src="correct.mp3?v=3" preload="auto"></audio>
 <audio id="wrongSound" src="wrong.mp3?v=3" preload="auto"></audio>
 <script>
-const TIME_LIMIT=20000;
-
-// ISI SESUAI MATERI KUIS
-const INFO = {
-  tema: "wudlu",
-  kitab: "عقيدة العوام للعوام",
-  fashl: "4"
+/* ===== PENGATURAN: semua diambil dari config.json (tidak perlu edit di sini) ===== */
+let TIME_LIMIT = 20000;
+let INFO = {
+  tema: "-",
+  kitab: "-",
+  fashl: "-",
+  linkPenjelasan: "#",
+  linkHome: "#"
 };
 
 /* ===== TEMA (default: gelap) ===== */
@@ -401,15 +401,43 @@ startScreen=document.getElementById("startScreen"),
 startBtn=document.getElementById("startBtn"),
 timerBox=document.getElementById("timerBox");
 
-document.getElementById("infoTema").textContent = INFO.tema;
-document.getElementById("infoKitab").textContent = INFO.kitab;
-document.getElementById("infoFashl").textContent = INFO.fashl;
-document.getElementById("infoWaktu").innerHTML = (TIME_LIMIT/1000) + "<small>detik</small>";
+/* ===== MUAT config.json + soal.json ===== */
+Promise.all([
+  fetch("config.json").then(r=>{
+    if(!r.ok) throw new Error("config.json tidak ditemukan");
+    return r.json();
+  }),
+  fetch("soal.json").then(r=>{
+    if(!r.ok) throw new Error("soal.json tidak ditemukan");
+    return r.json();
+  })
+]).then(([cfg,d])=>{
 
-fetch("soal.json").then(r=>r.json()).then(d=>{
-  data=d;
+  INFO = Object.assign(INFO, cfg);
+
+  if(cfg.waktuPerSoal && Number(cfg.waktuPerSoal) > 0){
+    TIME_LIMIT = Number(cfg.waktuPerSoal) * 1000;
+  }
+  remaining = TIME_LIMIT / 1000;
+  timeNum.textContent = remaining;
+
+  document.getElementById("infoTema").textContent = INFO.tema;
+  document.getElementById("infoKitab").textContent = INFO.kitab;
+  document.getElementById("infoFashl").textContent = INFO.fashl;
+  document.getElementById("infoWaktu").innerHTML = (TIME_LIMIT/1000) + "<small>detik</small>";
+
+  data = d;
   document.getElementById("infoJumlah").textContent = d.length;
-  startBtn.disabled=false;
+  startBtn.disabled = false;
+
+}).catch(err=>{
+  console.error(err);
+  document.getElementById("infoTema").textContent = "-";
+  document.getElementById("infoKitab").textContent = "-";
+  document.getElementById("infoFashl").textContent = "-";
+  document.getElementById("infoJumlah").textContent = "-";
+  document.getElementById("infoWaktu").textContent = "-";
+  alert("Gagal memuat config.json atau soal.json. Cek nama file dan format JSON-nya.");
 });
 
 function shuffle(arr){
@@ -459,7 +487,7 @@ function startTimer(){
 
       if(!alarmPlayed){
         alarmSound.currentTime = 0;
-        alarmSound.play();
+        alarmSound.play().catch(()=>{});
         alarmPlayed = true;
       }
     }
@@ -551,14 +579,14 @@ function check(btn,opt){
     score=Math.round(correct*100/data.length);
 
     correctSound.currentTime = 0;
-    correctSound.play();
+    correctSound.play().catch(()=>{});
 
     result.innerHTML=`<div class="correct-text">✔ Jawaban Benar</div><div class="explain">${data[idx].explanation}</div>`;
   }else{
     wrongCount++;
 
     wrongSound.currentTime = 0;
-    wrongSound.play();
+    wrongSound.play().catch(()=>{});
 
     result.innerHTML=`<div class="wrong-text">✖ Jawaban Salah</div><div class="explain">${data[idx].explanation}</div>`;
   }
@@ -576,7 +604,7 @@ function timeUp(){
   stopAllSounds();
 
   wrongSound.currentTime = 0;
-  wrongSound.play();
+  wrongSound.play().catch(()=>{});
 
   DipikirSound.pause();
   DipikirSound.currentTime = 0;
@@ -868,11 +896,11 @@ document.addEventListener("click", function(e){
   }
 
   if(e.target.id === "explainBtn"){
-    window.open("https://afhimna.github.io/e4qqq", "_blank");
+    window.open(INFO.linkPenjelasan, "_blank");
   }
 
   if(e.target.id === "HomeBtn"){
-    window.open("https://afhimna.github.io/home", "_blank");
+    window.open(INFO.linkHome, "_blank");
   }
 
   if(e.target.id === "shareBtn"){
@@ -883,7 +911,7 @@ document.addEventListener("click", function(e){
         type: "image/png"
       });
 
-      const shareText = `Saya mendapat nilai ${percent}% di Kuis AFHIMNA! Kunjungi: https://afhimna.github.io/home`;
+      const shareText = `Saya mendapat nilai ${percent}% di Kuis AFHIMNA! Kunjungi: ${INFO.linkHome}`;
 
       if(navigator.share && navigator.canShare && navigator.canShare({ files: [file] })){
 
